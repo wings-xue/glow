@@ -75,12 +75,8 @@ func (ac *AC) Transfer(c rune, t *tries.Tries) *tries.Tries {
 		}
 		return node
 	} else {
-		for node, ok := ac.FailPoint[t]; ok; t = node {
-			// 如果跳转到头结点
-			if node.Word == "" {
-				return node
-			}
-			// 不是头结点，再一次进行计算
+		for node, ok := ac.FailPoint[t]; ok && node != t; t = node {
+
 			if node.IsMatchWord {
 				ac.Collect = append(ac.Collect, node.Word)
 			}

@@ -1,6 +1,9 @@
 package ac
 
-import "fmt"
+import (
+	"fmt"
+	"testing"
+)
 
 func ExampleAC_Extract() {
 
@@ -36,4 +39,16 @@ func ExampleAC_Extract2() {
 
 	// Output:
 	// [中国 baby 杨超越 厦门 吴亦凡]
+}
+
+func Benchmark_getAdmin(b *testing.B) {
+	grow := New()
+	grow.AddWord("阿里巴巴")
+	grow.AddWord("基金")
+	grow.Build()
+
+	for i := 0; i < b.N; i++ { //use b.N for looping
+		grow.ExtractSet("阿里巴巴阿里巴巴基金基金")
+
+	}
 }
